@@ -1,0 +1,17 @@
+.post-list {
+    margin:20px auto;
+}
+
+.post-form {
+    margin:20px 10%;
+}
+
+
+.post-form th {
+    text-align:right;
+    margin-right:5px;
+}
+
+.post-form td {
+    padding-left:15px;
+}

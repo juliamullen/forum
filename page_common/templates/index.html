@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block style %}
+    <link type="text/css" href="{% static "conversation.css" %}" rel=stylesheet>
+{% endblock style %}
+
+{% block content %}
+    {% for conversation in conversations %}
+
+    <p class="pure-u-1 pure-u-md-1-5 forumname">{{ conversation.forum }}</p>
+    <p class="pure-u-1 pure-u-md-2-5 threadtitle">{{ conversation.title }}</p>
+    <p class="pure-u-1 pure-u-md-1-5 date">{{ conversation.last_post_date }}</p>
+    <p class="pure-u-1 pure-u-md-1-5 post-count">{{ conversation.post_count }} </p>
+    <ul class="pure-u-4-5 post-list">
+    {% for post in conversation.post_list %}
+        <li class="post">
+            <p class="author">{{ post.author }}</p>
+            <p class="date">{{ post.date }}</p>
+            {% if post.image %}
+            <div class="image"><img src="{{ post.image.url }}"></img></div>
+            {% endif %}
+            <p class="text">{{ post.text | safe }}</div>
+        </li>
+    {% endfor %}
+    </ul>
+    {% endfor %}
+
+<div class="inter">
+
+    <form method="post" class="post-form pure-u-4-5 pure-form pure-form-stacked">
+        {% csrf_token %}
+        <table>
+        {{ postform }}
+        <tr><td></td><td><input type="submit" value="Submit" class="pure-button" /></td></tr>
+        </table>
+    </form>
+
+</div>
+{% endblock content %}

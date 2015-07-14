@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+ifjfioej
+    {% for conversation in conversations %}
+    <p class="forumname">{{ conversation.forum }}</p>
+    <p class="threadtitle">{{ conversation.title }}</p>
+    <p class="date">{{ conversation.last_post_date }}</p>
+    <p class="post-count">{{ conversation.post_count }} </p>
+    <ul class="post-list">
+    {% for post in conversation.post_list %}
+        <li class="post">
+            <p class="author">{{ post.author }}</p>
+            <p class="date">{{ post.date }}</p>
+            {% if post.image %}
+            <div class="image"><img src="{{ post.image.url }}"></img></div>
+            {% endif %}
+            <p class="text">{{ post.text | safe }}</div>
+        </li>
+    {% endfor %}
+    </ul>
+    {% endfor %}
+
+    <form method="post" class="pure-form">
+        {% csrf_token %}
+        <table>
+        {{ postform }}
+        <tr><td></td><td><input type="submit" value="Submit" /></td></tr>
+        </table>
+    </form>
+{% endblock content %}

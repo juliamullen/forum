@@ -1,4 +1,6 @@
 from django.db import models
+from django import forms
+
 
 class Place(models.Model):
     title = models.CharField(max_length=20)
@@ -7,18 +9,10 @@ class Place(models.Model):
 
 class Conversation(models.Model):
     forum = models.ForeignKey(Place)
-    last_post_date = models.DateTimeField('date of last post')
     title = models.CharField(max_length=50, blank=True)
-    @property
-    def op(self):
-        """ Return the first post """
-        return self.post_set.order_by('date')[0]
-    @property
-    def post_latest(self):
-        """ Return up to the three most recent posts """
-        last = self.post_set.order_by('-date')[:(3 if (self.post_count > 3) else (self.post_count - 1))]
-        return last
-   def __unicode__(self):
+    post_count = models.IntegerField()
+    last_post_date = models.DateTimeField('date of last post')
+    def __unicode__(self):
         return str(self.pk)
 
 class Post(models.Model):
@@ -27,5 +21,8 @@ class Post(models.Model):
     date           = models.DateTimeField("date published")
     image          = models.ImageField(upload_to="img/%d", blank=True)
     conversation   = models.ForeignKey(Conversation)
+
+    number_post_in_conversation = models.IntegerField()
+
     def __unicode__(self):
-        return self.text[:20]
+        return "Post: {0}".format(self.text[:20])

@@ -1,0 +1,34 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {% block head %}
+        <meta charset="utf-8">
+        <title>{% block page_title %}Conversations{% endblock page_title %}</title>
+        <meta name="description" content="Django Powered Forum">
+        <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+        <style type="text/css">
+            @font-face {
+                font-family:"Geoma Thin";
+                src: url("{% static "Geoma Thin Demo.otf" %}");
+            }
+            * {
+                font-family: "Geoma Thin", Verdana;
+            }
+        </style>
+        {% endblock head %}
+
+    </head>
+    <body>
+        {% block body %}
+        {% block navbar %}
+        <div class ="nav">
+            <div class="nav-inner">
+        </div>
+        {% endblock navbar %}
+
+        {% block content %}
+        {% endblock content %}
+        {% endblock body %}
+    </body>
+</html>

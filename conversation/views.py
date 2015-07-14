@@ -3,7 +3,8 @@ from conversation.models import Place, Conversation, Post
 from conversation.forms import PostForm
 
 def index(request):
-    form = PostForm(request.POST or None)
+    form = PostForm(request.POST or None,
+                    label_suffix='')
     if form.is_valid():
         form.save()
         conversation = form.cleaned_data.get('conversation', None)
@@ -13,4 +14,4 @@ def index(request):
         'conversations': conversations,
         'postform':      form,
     }
-    return render(request, "conversation/index.html", context)
+    return render(request, "index.html", context)
